@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 from datetime import datetime
+import dbconfig
 
 def getInput():
     while True:
@@ -13,6 +14,7 @@ def getInput():
             return False
         except ValueError:
             print('Invalid date!')
+            exit(-1)
             break
 
 def dateFormat(begDate,endDate):
@@ -23,7 +25,7 @@ def dateFormat(begDate,endDate):
        
 def main():
     getInput()
-
+    dbconfig.main()
 if __name__ == '__main__':
     #call main
     main() 
