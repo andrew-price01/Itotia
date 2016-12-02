@@ -40,16 +40,16 @@ python3 ./create_report.py $beg_date $end_date
 	#compress file with zip and transfer it via FTP to FTP server using FTP credentials
 		# verify file is unzippable, send email to client Header: Successfully transfer file (FTP Address) 
 		# Body: Successfully created a transaction report from BegDate to EndDate
-case $? in
-	0) exit 1 ;;
-
+if $? == 0
+	echo "All's Well"
 # exit code -1:
 	# Email customer -  header: The create_report program exit with code -1 body: Bad Input parameters BegDate EndDate
-	'-1') echo "Bad Input parameters BegDate EndDate" ;;
-
+elif $? == -1
+	echo "The create_report program exit with code -1" 
 # exit code -2:
 	# Email customer - header: The create_report program exit with code -2 body: No transactions available from BegDate to EndDate
-	'-2') echo "No transactions available from BegDate to EndDate" ;;
-esac
+elif $? == -2
+	echo "The create_report program exit with code -2"
+fi
 
 exit 0
