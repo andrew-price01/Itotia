@@ -18,6 +18,10 @@ function reqHelp {
 	exit 1
 }
 
+if [ "$1" == "--help" ] || [ -z "$1" ]; then
+	reqHelp
+fi
+
 while getopts ":f:t:e:u:p:" opt; do
 	case $opt in
 		f) beg_date=$OPTARG;;
