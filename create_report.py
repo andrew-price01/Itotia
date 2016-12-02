@@ -74,13 +74,20 @@ def query_with_fetchone(bdate, edate):
         dbconfig = read_db_config()
         conn = MySQLConnection(**dbconfig)
         cursor = conn.cursor()
-        cursor.execute("SELECT trans.trans_id AS Trans_ID, trans_line.qty AS Qty  FROM trans INNER JOIN trans_line ON trans.trans_id = trans_line.trans_id WHERE trans_date > 2016-12-01")
 
-        row = cursor.fetchone()
-
-        while row is not None:
-            print(row)
-            row = cursor.fetchone()
+        cursor.execute("SELECT trans_id FROM trans WHERE trans_date > 2016-12-01")
+        trans_id_result = cursor.fetchall()
+        
+        for row in trans_id_result:
+            for i in row:
+                if len(str(i)) != 5:
+                    zeros = 5 - len(str(i))
+                    x = 0
+                    while x != zeros:
+                        print("0", end="")
+                        x += 1
+                print(i)
+                        
 
     except Error as e:
         print(e)
