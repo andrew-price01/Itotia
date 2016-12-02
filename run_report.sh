@@ -18,7 +18,7 @@ function reqHelp {
 	exit 1
 }
 
-while getopts ":f:t:e:u:p:"; do
+while getopts ":f:t:e:u:p:" opt; do
 	case $opt in
 		f) beg_date=$OPTARG;;
 		t) end_date=$OPTARG;;
@@ -29,10 +29,10 @@ while getopts ":f:t:e:u:p:"; do
 	esac
 done
 
-echo $beg_date
-echo $end_date
+#echo $beg_date
+#echo $end_date
 
-#python3 ./create_report2.py $beg_date $end_date
+python3 ./create_report2.py $beg_date $end_date
 
 exit 0
 
