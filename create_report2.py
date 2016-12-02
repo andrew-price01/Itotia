@@ -58,8 +58,9 @@ def dateFormat(begDate,endDate):
        
 def main():
     conn = connect()
-    begTest = "20150816"
-    endTest = "20150916"
+    print(sys.argv)
+    begTest = sys.argv[1]
+    endTest = sys.argv[2]
     getInput(begTest, endTest)
     disconnect(conn)
 
