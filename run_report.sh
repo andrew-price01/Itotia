@@ -1,15 +1,19 @@
-#!/usr/bin/env python3
-import sys
+#!/bin/bash - 
+#===============================================================================
+#
+#         USAGE: ./run_report.sh 
+# 
+#   DESCRIPTION: 
+# 
+#        AUTHOR: Karl Marble (), karlmarble@mail.weber.edu
+#  ORGANIZATION: 
+#       CREATED: 12/02/2016 01:51
+#      REVISION:  ---
+#===============================================================================
+
+#set -o nounset                              # Treat unset variables as an error
 
 
-def main():
-    """
-    Test Function
-    """
-    pass
 
-if __name__ == '__main__':
-    #call main
-    main() 
+exit 0
 
-    exit(0)
