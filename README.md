@@ -10,8 +10,3 @@
       
 (Script 1: run_report.sh) Create a shell wrapper script that will call your create_report.py
   module.
-
-Setting MySQL Data: For this project, you need to load the following information into
-your DB:
-  a. Copy Data: $ cp /home/hvalle/submit/cs3030/files/hw8.sql .
-  b. Load Data: $ mysql –u USER –p –D DATABASE < hw8.sql
