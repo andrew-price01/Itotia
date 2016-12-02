@@ -48,7 +48,6 @@ def getInput(begTest, endTest):
         except ValueError:
             print('Invalid date!')
             exit(-1)
-            break
 
 def dateFormat(begDate,endDate):
     beg_date = datetime.strptime(begDate,'%Y%m%d').strftime('%Y-%m-%d 00:00')
