@@ -34,8 +34,8 @@ def dateFormat(begDate,endDate):
     global beg_date, end_date;
     beg_date = datetime.strptime(begDate,'%Y%m%d').strftime('%Y-%m-%d 00:00')
     end_date = datetime.strptime(sys.argv[2],'%Y%m%d').strftime('%Y-%m-%d 23:59')
-    print("Beginning date: {}".format(beg_date))
-    print("Ending date: {}".format(end_date))
+    #print("Beginning date: {}".format(beg_date))
+    #print("Ending date: {}".format(end_date))
 
 
 def connect():
@@ -75,19 +75,12 @@ def query_with_fetchone(bdate, edate):
         conn = MySQLConnection(**dbconfig)
         cursor = conn.cursor()
 
-        cursor.execute("SELECT trans_id FROM trans WHERE trans_date > 2016-12-01")
-        trans_id_result = cursor.fetchall()
+        cursor.execute("SELECT LPAD(t.trans_id, 5, '0'), DATE_FORMAT(t.trans_date,'%Y%m%d%h%i%s'),RIGHT(t.card_num,6) FROM trans t JOIN trans_line tl ON t.trans_id = tl.trans_id JOIN products p ON p.prod_num = tl.prod_num WHERE t.trans_date > 2016-12-01 GROUP BY LPAD(t.trans_id,5,'0'), t.trans_date, RIGHT(t.card_num,6)")
+        result = cursor.fetchall()
         
-        for row in trans_id_result:
+        for row in result:
             for i in row:
-                if len(str(i)) != 5:
-                    zeros = 5 - len(str(i))
-                    x = 0
-                    while x != zeros:
-                        print("0", end="")
-                        x += 1
                 print(i)
-                        
 
     except Error as e:
         print(e)
