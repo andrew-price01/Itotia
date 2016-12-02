@@ -2,7 +2,7 @@
 import sys
 from datetime import datetime
 from dbconfig import read_db_config
-from mysql_connect import Error, MySQLConnection
+from mysql.connector import Error, MySQLConnection
 
 
 def getInput():
