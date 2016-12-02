@@ -21,7 +21,7 @@ def getInput():
             dateFormat(sys.argv[1],sys.argv[2])
             return False
         except ValueError:
-            exit(-1)
+            exit -1
             break
 
 def dateFormat(begDate,endDate):
@@ -31,6 +31,7 @@ def dateFormat(begDate,endDate):
     Args:
         Begin date, end date.
     """
+    global beg_date, end_date;
     beg_date = datetime.strptime(begDate,'%Y%m%d').strftime('%Y-%m-%d 00:00')
     end_date = datetime.strptime(sys.argv[2],'%Y%m%d').strftime('%Y-%m-%d 23:59')
     print("Beginning date: {}".format(beg_date))
@@ -67,15 +68,30 @@ def disconnect(conn):
     """
     conn.close()
     print("Connection Closed.")
-    
 
+def query_with_fetchone(bdate, edate):
+    try:
+        dbconfig = read_db_config()
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute("SELECT trans.trans_id AS Trans_ID, trans_line.qty AS Qty  FROM trans INNER JOIN trans_line ON trans.trans_id = trans_line.trans_id WHERE trans_date > 2016-12-01")
+
+        row = cursor.fetchone()
+
+        while row is not None:
+            print(row)
+            row = cursor.fetchone()
+
+    except Error as e:
+        print(e)
+
+    finally:
+        cursor.close()
+        conn.close()
 
 def main():
-    conn = connect()
-    begTest = "20150816"
-    endTest = "20150916"
     getInput()
-    disconnect(conn)
+    query_with_fetchone(beg_date, end_date)
     
 
 if __name__ == '__main__':
