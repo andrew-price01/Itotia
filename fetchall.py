@@ -20,7 +20,7 @@ def connect():
         else:
             print("Connection Failed.")
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM customer")
+        cursor.execute("SELECT * FROM Trans")
         
         rows = cursor.fetchall()
         print("Total Row(s)")
