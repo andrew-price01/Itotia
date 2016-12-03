@@ -24,7 +24,7 @@ def getInput():
             dateFormat(sys.argv[1],sys.argv[2])
             return False
         except ValueError:
-            exit(1)
+            exit(-1)
             break
 
 def dateFormat(begDate,endDate):
@@ -118,7 +118,7 @@ def queryData(bdate, edate):
                     totalList.append(newItem)
                 x += 1
         else:
-            exit(2)
+            exit(-2)
 
     except Error as e:
         print(e)
