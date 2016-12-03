@@ -24,7 +24,7 @@ def getInput():
             dateFormat(sys.argv[1],sys.argv[2])
             return False
         except ValueError:
-            exit -1
+            exit(1)
             break
 
 def dateFormat(begDate,endDate):
@@ -72,7 +72,7 @@ def disconnect(conn):
     conn.close()
     print("Connection Closed.")
 
-def query_with_fetchone(bdate, edate):
+def queryData(bdate, edate):
 
     try:
         dbconfig = read_db_config()
@@ -83,39 +83,43 @@ def query_with_fetchone(bdate, edate):
         cursor.execute("SELECT LPAD(trans_id, 5, 0), DATE_FORMAT(trans_date, '%Y%m%d%h%i'),RIGHT(card_num,6) FROM trans WHERE trans_date >= %s AND trans_date <= %s GROUP BY trans_id, trans_date, card_num",(bdate, edate))   
         result = cursor.fetchall()
         
-        #add each row to List transList
-        for row in result:
-            transList.append("{}{}{}".format(row[0],row[1],row[2]))
-    
-        #retrieve all product qty, amt, and description
-        x = 1
-        i = 0
-        while x != len(transList) + 1:
-            while i != 3:
-                cursor.execute("SELECT RPAD(TRUNCATE(tl.qty,0),2,0), RIGHT(tl.amt,6), p.prod_desc, tl.trans_id FROM trans_line tl INNER JOIN products p ON tl.prod_num = p.prod_num WHERE tl.line_id = %s AND tl.trans_id = %s GROUP BY tl.qty, tl.amt, p.prod_desc, tl.trans_id",(i,x))
-                prod = cursor.fetchall()
-                if prod:
-                    for row in prod:
-                        #format to remove . and pad with zeros, add to list prodList
-                        newAmt = str(row[1]).replace(".","").zfill(6)
-                        prodList.append("{}{}{}".format(row[0],newAmt,row[2]))
-                else:
-                    prodList.append("00000000")
-                i += 1
-            i = 0
-            x += 1
+        if result:
+
+            #add each row to List transList
+            for row in result:
+                transList.append("{}{}{}".format(row[0],row[1],row[2]))
         
-        #retrieve all totals
-        x = 1
-        while x != len(transList) + 1:
-            cursor.execute("SELECT total FROM trans WHERE trans_id = %s" % (x))
-            total = cursor.fetchall()
-            for item in total:
-                #format and add to list totalList
-                newItem = str(item[0]).replace(".","").zfill(6)
-                totalList.append(newItem)
-            x += 1
-    
+            #retrieve all product qty, amt, and description
+            x = 1
+            i = 0
+            while x != len(transList) + 1:
+                while i != 3:
+                    cursor.execute("SELECT RPAD(TRUNCATE(tl.qty,0),2,0), RIGHT(tl.amt,6), p.prod_desc, tl.trans_id FROM trans_line tl INNER JOIN products p ON tl.prod_num = p.prod_num WHERE tl.line_id = %s AND tl.trans_id = %s GROUP BY tl.qty, tl.amt, p.prod_desc, tl.trans_id",(i,x))
+                    prod = cursor.fetchall()
+                    if prod:
+                        for row in prod:
+                            #format to remove . and pad with zeros, add to list prodList
+                            newAmt = str(row[1]).replace(".","").zfill(6)
+                            prodList.append("{}{}{}".format(row[0],newAmt,row[2]))
+                    else:
+                        prodList.append("00000000")
+                    i += 1
+                i = 0
+                x +=1
+            
+            #retrieve all totals
+            x = 1
+            while x != len(transList) + 1:
+                cursor.execute("SELECT total FROM trans WHERE trans_id = %s" % (x))
+                total = cursor.fetchall()
+                for item in total:
+                    #format and add to list totalList
+                    newItem = str(item[0]).replace(".","").zfill(6)
+                    totalList.append(newItem)
+                x += 1
+        else:
+            exit(2)
+
     except Error as e:
         print(e)
 
@@ -148,8 +152,8 @@ def createReport():
          
 def main():
     getInput()
-    query_with_fetchone(beg_date, end_date)
-    createReport() 
+    queryData(beg_date, end_date)
+    createReport()
 
 if __name__ == '__main__':
     #call main
