@@ -120,7 +120,8 @@ def query_with_fetchone(bdate, edate):
         i = 0
         t = 0
         while x != 6:
-            print("{}{} {} {} {}".format(L1[x],L2[i],L2[i+1],L2[i+2],L3[t]))
+            line = ("{}{:<20} {:<20} {:<20} {:<20}".format(L1[x],L2[i],L2[i+1],L2[i+2],L3[t]))
+            print(line)
             x += 1
             i += 3
             t += 1
