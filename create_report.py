@@ -120,8 +120,10 @@ def query_with_fetchone(bdate, edate):
         i = 0
         t = 0
         while x != 6:
+            fname = ("company_trans_{}_{}.dat").format(sys.argv[1],sys.argv[2])
             line = ("{}{:<20} {:<20} {:<20} {:<20}".format(L1[x],L2[i],L2[i+1],L2[i+2],L3[t]))
-            print(line)
+            with open(fname,"a") as myfile:
+                myfile.write(line)
             x += 1
             i += 3
             t += 1
