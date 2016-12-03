@@ -79,19 +79,18 @@ def query_with_fetchone(bdate, edate):
         cursor = conn.cursor()
         
         #retrieve trans id, trans date, last 6 card number
-        cursor.execute("SELECT LPAD(t.trans_id, 5, 0), DATE_FORMAT(t.trans_date, '%Y%m%d%h%i%s'),RIGHT(t.card_num,6) FROM trans t JOIN trans_line tl ON t.trans_id = tl.trans_id JOIN  products p ON p.prod_num = tl.prod_num WHERE t.trans_date > '%s' GROUP BY LPAD(t.trans_id, 5, 0), DATE_FORMAT(t.trans_date, '%Y%m%d%h%i%s'),RIGHT(t.card_num,6)",(bdate))   
+        cursor.execute("SELECT LPAD(trans_id, 5, 0), DATE_FORMAT(trans_date, '%Y%m%d%h%i'),RIGHT(card_num,6) FROM trans WHERE trans_date >= %s AND trans_date <= %s GROUP BY trans_id, trans_date, card_num",(bdate, edate))   
         result = cursor.fetchall()
         
         #add each row to List L1
         for row in result:
             L1.append("{}{}{}".format(row[0],row[1],row[2]))
-        
         #retrieve all product qty, amt, and description
         x = 1
         i = 0
         while x != 7:
             while i != 3:
-                cursor.execute("SELECT RPAD(TRUNCATE(tl.qty,0),2,0), RIGHT(tl.amt,6), p.prod_desc, tl.trans_id FROM trans_line tl INNER JOIN products p ON tl.prod_num = p.prod_num WHERE tl.line_id = '%s' AND tl.trans_id = '%s' GROUP BY tl.qty, tl.amt, p.prod_desc, tl.trans_id",(i,x))
+                cursor.execute("SELECT RPAD(TRUNCATE(tl.qty,0),2,0), RIGHT(tl.amt,6), p.prod_desc, tl.trans_id FROM trans_line tl INNER JOIN products p ON tl.prod_num = p.prod_num WHERE tl.line_id = %s AND tl.trans_id = %s GROUP BY tl.qty, tl.amt, p.prod_desc, tl.trans_id",(i,x))
                 prod = cursor.fetchall()
                 if prod:
                     for row in prod:
@@ -107,7 +106,7 @@ def query_with_fetchone(bdate, edate):
         #retrieve all totals
         x = 1
         while x != 7:
-            cursor.execute("SELECT total FROM trans WHERE trans_id = '%s'" % (x))
+            cursor.execute("SELECT total FROM trans WHERE trans_id = %s" % (x))
             total = cursor.fetchall()
             for item in total:
                 #format and add to list L3
