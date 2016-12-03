@@ -3,7 +3,10 @@
 #
 #         USAGE: ./run_report.sh 
 # 
-#   DESCRIPTION: 
+#   DESCRIPTION: runs a python3 script that takes the date arguments from this 
+#		script to parse a sql file. it then compresses the file using zip and 
+#		using and FTP connection places it in the customer_server/ folder on a
+#		remote server then emails the user of file transfer
 # 
 #        AUTHOR: Karl Marble (), karlmarble@mail.weber.edu
 #  ORGANIZATION: 
@@ -42,9 +45,9 @@ code=$?
 	#compress file with zip and transfer it via FTP to FTP server using FTP credentials
 		# verify file is unzippable, send email to client Header: Successfully transfer file (FTP Address) 
 		# Body: Successfully created a transaction report from BegDate to EndDate
-if $code == 0
+if [ "$code" == "0" ]; then
 	#set FTP variables
-	HOST='139.190.19.99'
+	HOST='137.190.19.99'
 	USER=$user
 	PASSWD=$pass
 	#set file variables
@@ -53,29 +56,28 @@ if $code == 0
 	#compress file using zip
 	zip $zipfile $file
 	#put the compressed file in customer_server
-	ftp -n -v $HOST << EOT
-	ascii
+	ftp -n $HOST <<-EoS
 	user $USER $PASSWD
-	binary
 	cd customer_server
 	put $zipfile
-	bye
-	EOT
+	quit
+	EoS
+
 	#send a mail stating the successful ftp of file
-	mail -s "Successfully transfered file to FTP Server." "$email" <<EOF
+	mail -s "Successfully transfered file to FTP Server." "$email" <<-EoF
 	Successfully created a transaction report from BegDate to EndDate
-	EOF
+	EoF
 
 # exit code -1:
 	# Email customer -  header: The create_report program exit with code -1 body: Bad Input parameters BegDate EndDate
-elif $code == -1
-	mail -s "The create_report program exit with code -1" "$email" <<EOF
+elif [ "$code" == "-1" ]; then
+	mail -s "The create_report program exit with code -1" "$email" <<-EOF
 	Bad Input parameters BegDate EndDate
 	EOF
 # exit code -2:
 	# Email customer - header: The create_report program exit with code -2 body: No transactions available from BegDate to EndDate
-elif $code == -2
-	mail -s "The create_report program exit with code -2” "$email" <<EOF
+elif [ "$code" == "-2" ]; then
+	mail -s "The create_report program exit with code -2" "$email" <<-EOF
 	No transactions available from BegDate to EndDate
 	EOF
 fi
