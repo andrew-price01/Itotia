@@ -4,6 +4,7 @@ from datetime import datetime
 from dbconfig import read_db_config
 from mysql.connector import Error, MySQLConnection
 
+#declare lists
 transList = []
 prodList = []
 totalList = []
@@ -27,6 +28,8 @@ def getInput():
             exit(-1)
             break
 
+
+
 def dateFormat(begDate,endDate):
     """
     Description: 
@@ -37,8 +40,7 @@ def dateFormat(begDate,endDate):
     global beg_date, end_date;
     beg_date = datetime.strptime(begDate,'%Y%m%d').strftime('%Y-%m-%d 00:00')
     end_date = datetime.strptime(sys.argv[2],'%Y%m%d').strftime('%Y-%m-%d 23:59')
-    #print("Beginning date: {}".format(beg_date))
-    #print("Ending date: {}".format(end_date))
+
 
 
 def connect():
@@ -62,6 +64,8 @@ def connect():
         print(error)
     return conn
 
+
+
 def disconnect(conn):
     """
     Description: 
@@ -72,8 +76,15 @@ def disconnect(conn):
     conn.close()
     print("Connection Closed.")
 
-def queryData(bdate, edate):
 
+
+def queryData(bdate, edate):
+    """
+    Description:
+        Retrieve data from db
+    Args:
+        Begin date, end date
+    """
     try:
         dbconfig = read_db_config()
         conn = MySQLConnection(**dbconfig)
@@ -128,6 +139,7 @@ def queryData(bdate, edate):
         conn.close()
 
 
+
 #Create fixed-length report, company_trans_begDate_endDate.dat
 def createReport():
     """
@@ -149,8 +161,15 @@ def createReport():
         x += 1
         i += 3
         t += 1
-         
+
+
 def main():
+    """
+    Description:
+        Call getInput(), queryData(), and createReport().
+    Args:
+        None.
+    """
     getInput()
     queryData(beg_date, end_date)
     createReport()
