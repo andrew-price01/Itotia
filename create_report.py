@@ -2,7 +2,7 @@
 import sys
 from datetime import datetime
 from dbconfig import read_db_config
-from mysql_connect import Error, MySQLConnection
+from mysql.connector import Error, MySQLConnection
 
 
 def getInput():
@@ -70,18 +70,62 @@ def disconnect(conn):
     print("Connection Closed.")
 
 def query_with_fetchone(bdate, edate):
+    L1 = [] 
+    L2 = []
+    L3 = []
     try:
         dbconfig = read_db_config()
         conn = MySQLConnection(**dbconfig)
         cursor = conn.cursor()
-
-        cursor.execute("SELECT LPAD(t.trans_id, 5, '0'), DATE_FORMAT(t.trans_date,'%Y%m%d%h%i%s'),RIGHT(t.card_num,6) FROM trans t JOIN trans_line tl ON t.trans_id = tl.trans_id JOIN products p ON p.prod_num = tl.prod_num WHERE t.trans_date > 2016-12-01 GROUP BY LPAD(t.trans_id,5,'0'), t.trans_date, RIGHT(t.card_num,6)")
+        
+        #retrieve trans id, trans date, last 6 card number
+        cursor.execute("SELECT LPAD(t.trans_id, 5, 0), DATE_FORMAT(t.trans_date, '%Y%m%d%h%i%s'),RIGHT(t.card_num,6) FROM trans t JOIN trans_line tl ON t.trans_id = tl.trans_id JOIN  products p ON p.prod_num = tl.prod_num WHERE t.trans_date > '%s' GROUP BY LPAD(t.trans_id, 5, 0), DATE_FORMAT(t.trans_date, '%Y%m%d%h%i%s'),RIGHT(t.card_num,6)",(bdate))   
         result = cursor.fetchall()
         
+        #add each row to List L1
         for row in result:
-            for i in row:
-                print(i)
-
+            L1.append("{}{}{}".format(row[0],row[1],row[2]))
+        
+        #retrieve all product qty, amt, and description
+        x = 1
+        i = 0
+        while x != 7:
+            while i != 3:
+                cursor.execute("SELECT RPAD(TRUNCATE(tl.qty,0),2,0), RIGHT(tl.amt,6), p.prod_desc, tl.trans_id FROM trans_line tl INNER JOIN products p ON tl.prod_num = p.prod_num WHERE tl.line_id = '%s' AND tl.trans_id = '%s' GROUP BY tl.qty, tl.amt, p.prod_desc, tl.trans_id",(i,x))
+                prod = cursor.fetchall()
+                if prod:
+                    for row in prod:
+                        #format to remove . and pad with zeros, add to list L2
+                        newAmt = str(row[1]).replace(".","").zfill(6)
+                        L2.append("{}{}{}".format(row[0],newAmt,row[2]))
+                else:
+                    L2.append("00000000")
+                i += 1
+            i = 0
+            x += 1
+        
+        #retrieve all totals
+        x = 1
+        while x != 7:
+            cursor.execute("SELECT total FROM trans WHERE trans_id = '%s'" % (x))
+            total = cursor.fetchall()
+            for item in total:
+                #format and add to list L3
+                newItem = str(item[0]).replace(".","").zfill(6)
+                L3.append(newItem)
+            x += 1
+        
+        #print each line
+        x = 0
+        i = 0
+        t = 0
+        while x != 6:
+            print("{}{} {} {} {}".format(L1[x],L2[i],L2[i+1],L2[i+2],L3[t]))
+            x += 1
+            i += 3
+            t += 1
+        
+            
     except Error as e:
         print(e)
 
