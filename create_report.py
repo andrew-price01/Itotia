@@ -4,6 +4,9 @@ from datetime import datetime
 from dbconfig import read_db_config
 from mysql.connector import Error, MySQLConnection
 
+transList = []
+prodList = []
+totalList = []
 
 def getInput():
     """
@@ -70,9 +73,7 @@ def disconnect(conn):
     print("Connection Closed.")
 
 def query_with_fetchone(bdate, edate):
-    L1 = [] 
-    L2 = []
-    L3 = []
+
     try:
         dbconfig = read_db_config()
         conn = MySQLConnection(**dbconfig)
@@ -82,52 +83,39 @@ def query_with_fetchone(bdate, edate):
         cursor.execute("SELECT LPAD(trans_id, 5, 0), DATE_FORMAT(trans_date, '%Y%m%d%h%i'),RIGHT(card_num,6) FROM trans WHERE trans_date >= %s AND trans_date <= %s GROUP BY trans_id, trans_date, card_num",(bdate, edate))   
         result = cursor.fetchall()
         
-        #add each row to List L1
+        #add each row to List transList
         for row in result:
-            L1.append("{}{}{}".format(row[0],row[1],row[2]))
+            transList.append("{}{}{}".format(row[0],row[1],row[2]))
+    
         #retrieve all product qty, amt, and description
         x = 1
         i = 0
-        while x != 7:
+        while x != len(transList) + 1:
             while i != 3:
                 cursor.execute("SELECT RPAD(TRUNCATE(tl.qty,0),2,0), RIGHT(tl.amt,6), p.prod_desc, tl.trans_id FROM trans_line tl INNER JOIN products p ON tl.prod_num = p.prod_num WHERE tl.line_id = %s AND tl.trans_id = %s GROUP BY tl.qty, tl.amt, p.prod_desc, tl.trans_id",(i,x))
                 prod = cursor.fetchall()
                 if prod:
                     for row in prod:
-                        #format to remove . and pad with zeros, add to list L2
+                        #format to remove . and pad with zeros, add to list prodList
                         newAmt = str(row[1]).replace(".","").zfill(6)
-                        L2.append("{}{}{}".format(row[0],newAmt,row[2]))
+                        prodList.append("{}{}{}".format(row[0],newAmt,row[2]))
                 else:
-                    L2.append("00000000")
+                    prodList.append("00000000")
                 i += 1
             i = 0
             x += 1
         
         #retrieve all totals
         x = 1
-        while x != 7:
+        while x != len(transList) + 1:
             cursor.execute("SELECT total FROM trans WHERE trans_id = %s" % (x))
             total = cursor.fetchall()
             for item in total:
-                #format and add to list L3
+                #format and add to list totalList
                 newItem = str(item[0]).replace(".","").zfill(6)
-                L3.append(newItem)
+                totalList.append(newItem)
             x += 1
-        
-        #print each line
-        x = 0
-        i = 0
-        t = 0
-        while x != 6:
-            fname = ("company_trans_{}_{}.dat").format(sys.argv[1],sys.argv[2])
-            line = ("{}{:<20} {:<20} {:<20} {:<20}".format(L1[x],L2[i],L2[i+1],L2[i+2],L3[t]))
-            with open(fname,"a") as myfile:
-                myfile.write(line)
-            x += 1
-            i += 3
-            t += 1
-        
-            
+    
     except Error as e:
         print(e)
 
@@ -135,10 +123,33 @@ def query_with_fetchone(bdate, edate):
         cursor.close()
         conn.close()
 
+
+#Create fixed-length report, company_trans_begDate_endDate.dat
+def createReport():
+    """
+    Description: 
+        Create formatted report on data retrieved.
+    Args:
+        None.
+    Return:
+        Output .dat file
+    """
+    x = 0
+    i = 0
+    t = 0
+    while x != len(transList):
+        fname = ("company_trans_{}_{}.dat").format(sys.argv[1],sys.argv[2])
+        line = ("{}{:<20} {:<20} {:<20} {:<20}".format(transList[x],prodList[i],prodList[i+1],prodList[i+2],totalList[t]))
+        with open(fname,"a") as myfile:
+            myfile.write(line)
+        x += 1
+        i += 3
+        t += 1
+         
 def main():
     getInput()
     query_with_fetchone(beg_date, end_date)
-    
+    createReport() 
 
 if __name__ == '__main__':
     #call main
