@@ -22,6 +22,7 @@ def getInput():
             endTest = sys.argv[2]
             begTest = datetime.strptime(begTest, '%Y%m%d')
             endTest = datetime.strptime(endTest,'%Y%m%d')
+            print("Getting transaction from {} to {}".format(begTest,endTest))
             dateFormat(sys.argv[1],sys.argv[2])
             return False
         except ValueError:
@@ -42,58 +43,27 @@ def dateFormat(begDate,endDate):
     end_date = datetime.strptime(sys.argv[2],'%Y%m%d').strftime('%Y-%m-%d 23:59')
 
 
-
-def connect():
-    """
-    Description:
-        Connect to SQL DB with connect file.
-    Args:
-        None
-    Returns:
-        SQL Connection
-    """
-    db_config = read_db_config()
-    try:
-        print("Connecting to MySQL Database...")
-        conn = MySQLConnection(**db_config)
-        if conn.is_connected():
-            print("Connection Successful.")
-        else:
-            print("Connection Failed.")
-    except Error as error:
-        print(error)
-    return conn
-
-
-
-def disconnect(conn):
-    """
-    Description: 
-        Disconnect a previously established SQL connection.
-    Args:
-        conn: a previously established connection.
-    """
-    conn.close()
-    print("Connection Closed.")
-
-
-
 def queryData(bdate, edate):
     """
     Description:
         Retrieve data from db
     Args:
-        Begin date, end date
+        Begin date, end date.
     """
     try:
         dbconfig = read_db_config()
         conn = MySQLConnection(**dbconfig)
         cursor = conn.cursor()
         
+        if conn.is_connected():
+            print("Connected.")
+        else:
+            print("Connection Failed.")
+
         #retrieve trans id, trans date, last 6 card number
-        cursor.execute("SELECT LPAD(trans_id, 5, 0), DATE_FORMAT(trans_date, '%Y%m%d%h%i'),RIGHT(card_num,6) FROM trans WHERE trans_date >= %s AND trans_date <= %s GROUP BY trans_id, trans_date, card_num",(bdate, edate))   
+        cursor.execute("SELECT LPAD(trans_id, 5, 0), DATE_FORMAT(trans_date, '%Y%m%d%H%i'),RIGHT(card_num,6) FROM trans WHERE trans_date >= %s AND trans_date <= %s GROUP BY trans_id, trans_date, card_num",(bdate, edate))   
         result = cursor.fetchall()
-        
+ 
         if result:
 
             #add each row to List transList
@@ -135,10 +105,10 @@ def queryData(bdate, edate):
         print(e)
 
     finally:
+        createReport()
         cursor.close()
         conn.close()
-
-
+        print("Disconnected.")
 
 #Create fixed-length report, company_trans_begDate_endDate.dat
 def createReport():
@@ -155,9 +125,11 @@ def createReport():
     t = 0
     while x != len(transList):
         fname = ("company_trans_{}_{}.dat").format(sys.argv[1],sys.argv[2])
-        line = ("{}{:<20} {:<20} {:<20} {:<20}".format(transList[x],prodList[i],prodList[i+1],prodList[i+2],totalList[t]))
+        line = ("{:<20}{:<20} {:<20} {:<20} {:>5}".format(transList[x],prodList[i],prodList[i+1],prodList[i+2],totalList[t]))
         with open(fname,"a") as myfile:
             myfile.write(line)
+            myfile.write('\n')
+        print("[{}]".format(line))
         x += 1
         i += 3
         t += 1
@@ -172,7 +144,6 @@ def main():
     """
     getInput()
     queryData(beg_date, end_date)
-    createReport()
 
 if __name__ == '__main__':
     #call main
