@@ -1,0 +1,305 @@
+commit 2ba83740e4efe1770c964acb92dc2d62441fe403
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sun Dec 4 01:32:42 2016 +0000
+
+    final commit
+
+commit 1f0765ce8340580b133ad05251853d418b4420f5
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 23:47:04 2016 +0000
+
+    update docstrings
+
+commit bb48fd83559983b231ade1e035cd9cf79fda1822
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 23:40:56 2016 +0000
+
+    update exit codes to -1 and -2
+
+commit d7aa3801e9a89a980fa668482359543ca9ba9520
+Merge: 1baeab8 1b6c519
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 23:37:11 2016 +0000
+
+    Merge branch 'master' of https://github.com/locoslrak/Itotia_hw8
+
+commit 1baeab839d2653b73e853f28287fa33a7174bc98
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 23:37:00 2016 +0000
+
+    add exit codes
+
+commit 1b6c519e763e1310beea280942c649109b8f4034
+Merge: 447ad70 610b30b
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Sat Dec 3 23:10:54 2016 +0000
+
+    Merge branch 'master' of https://github.com/locoslrak/Itotia_hw8
+
+commit 447ad700bef6804aaf4a0f96df57091216ff249b
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Sat Dec 3 23:10:19 2016 +0000
+
+    Added to description and fixed FTP connection
+
+commit 610b30b787f90460dbf2742e6fef00589bfe740c
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 22:51:58 2016 +0000
+
+    Update list names and add createReport()
+
+commit 4f35f85dcf2674407140bb52e9a9bfc172463b7d
+Merge: a2546b6 7f50de3
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 22:27:32 2016 +0000
+
+    Merge branch 'master' of https://github.com/locoslrak/Itotia_hw8
+
+commit a2546b66ad0525667e672c7a7efcd046485707e9
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 22:27:00 2016 +0000
+
+    Updated query to retrieve data between given dates
+
+commit 7f50de34884c7bf151fe5db815d9071ea7f56754
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Sat Dec 3 15:22:35 2016 -0700
+
+    completed exit code if statements
+    
+    Added commands for FTP, zip, and emails
+
+commit f5edd9deedeb7ea496d86275969d1013b1b4b274
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 21:30:10 2016 +0000
+
+    create fixed-length report
+
+commit e3ba4cd036610ed2055af33bce01a13850ec7508
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 21:09:49 2016 +0000
+
+    update spacing format
+
+commit 5aa9b9fcc20a5bf2e6fffa655a132dcba29f157f
+Merge: 563f1fe 7ce5f4e
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 09:59:41 2016 +0000
+
+    Merge branch 'master' of https://github.com/locoslrak/Itotia_hw8
+
+commit 563f1fe75789d06317e24f276853b8757ebaf057
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sat Dec 3 09:59:27 2016 +0000
+
+    query formatting update
+
+commit 7ce5f4e1792291d2762d0b5bd2c510e757d9372e
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 02:42:38 2016 -0700
+
+    Update README.md
+
+commit 0a7c2ea41d847f13bd0bc4cfa5b4fe9da4444f81
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 09:40:51 2016 +0000
+
+    update exit code comparison logic
+
+commit abf2c65fda4bba1b438dd2a4274aa6dd9d1ec7ba
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 08:58:48 2016 +0000
+
+    update
+
+commit f5866166c46f35df851a42b7028d48312e6227e1
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 08:58:30 2016 +0000
+
+    started decision making section
+
+commit 721097c5890739e942cbc4e902e5b09e7c3edf54
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 08:57:54 2016 +0000
+
+    Adjusted line 5
+
+commit edc103263ba6cfd9014665bef1f257f8f8e88802
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Fri Dec 2 08:50:16 2016 +0000
+
+    Update query
+
+commit e481e8711dcebf0804895c6380937eb75abf6eb1
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Fri Dec 2 07:25:18 2016 +0000
+
+    Update query_with_fetchone(), pad zeros to trans id
+
+commit db0b93869ebe5fa940752de8bfc49f2a9cb56c32
+Merge: 53a3ae5 081d27a
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Fri Dec 2 06:45:42 2016 +0000
+
+    Merge branch 'master' of https://github.com/locoslrak/Itotia_hw8
+
+commit 53a3ae50316b1432aab4a9349e767c9ed6d8ea55
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Fri Dec 2 06:42:08 2016 +0000
+
+    Added query_with_fetchone()
+
+commit 081d27ada35f07b0432a7bc4fe20b287e4e8ff1e
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Thu Dec 1 23:29:20 2016 -0700
+
+    Changed table to Trans
+    
+    For testing of data tables
+
+commit 1375506db4f13475034364d9724bd0b010551371
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 06:19:20 2016 +0000
+
+    commented out line 61
+
+commit faf7733e3736bd17b40fe26e205dbc6ccee1a041
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 06:17:39 2016 +0000
+
+    added more robust help function
+
+commit a2c3df222051ae284ea9e782437712192ae5e050
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 06:10:41 2016 +0000
+
+    missing opt in line 21 fixed
+
+commit b59dcde2172c96633992d5181bcb88c2896a287d
+Merge: c962aad 4bb4138
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 05:59:46 2016 +0000
+
+    Merge branch 'master' of https://github.com/locoslrak/Itotia_hw8
+    Combining files
+
+commit c962aad2ef707f6bae2f5e818b5a48d7b18d3c93
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 05:52:27 2016 +0000
+
+    testing parameter pass
+
+commit d9ecba90032233c528615f35b28f9e1b976632d2
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 05:50:06 2016 +0000
+
+    Added support for run_report.sh
+
+commit 4bb4138507d94b360ef1a59317c2573eb7b2b456
+Merge: d8b2fa5 1fd60f8
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Fri Dec 2 05:34:43 2016 +0000
+
+    Merge branch 'master' of https://github.com/locoslrak/Itotia_hw8
+
+commit d8b2fa5d35a31e3301d9b4a7e34db2bb0b7c2529
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Fri Dec 2 05:33:36 2016 +0000
+
+    Update connect() & disconnect()
+
+commit 1fd60f862af99b1d132d8077bad4139521b45d02
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 04:30:26 2016 +0000
+
+    Added disconnect function
+
+commit 3fa7e9e91dc1ac6606458409c3735e1956bab6b1
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 04:20:01 2016 +0000
+
+    TS create_report.py without overwriting it -successfully connecting to DB
+
+commit cb449609f78e6e447016433a54583a946a0b66da
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 01:52:22 2016 +0000
+
+    Fixed skeleton
+
+commit e4f8d312eae5aadd29de4d32012ef8ecdcc989ec
+Author: Karl <karlmarble@mail.weber.edu>
+Date:   Fri Dec 2 01:48:17 2016 +0000
+
+    Test connection file
+
+commit 7d43c44e232e8c4d4f9411557a552bdf3acb4d26
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Thu Dec 1 05:20:16 2016 +0000
+
+    Import dbconfig.py
+
+commit 5a42e9f2989966f1ce782cf0655837be4e4344d4
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Wed Nov 30 21:39:45 2016 -0700
+
+    Added log in info
+
+commit dd37db91a5393d8685fa2e6be01a8cdc0309d791
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Wed Nov 30 21:36:05 2016 -0700
+
+    getInput() and dateFormat() updated, working
+
+commit 536f7e14c06706cc89c662a039698605b5b742d1
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sun Nov 27 17:51:35 2016 -0700
+
+    getInput()
+
+commit 27cd609b17b90389f8df5c1b99c81d8c984b16db
+Author: Andrew Price <andrewprice@mail.weber.edu>
+Date:   Sun Nov 27 16:35:49 2016 -0700
+
+    Initial commit
+
+commit a712a0e49ad23d9d7df4981e0ac383095d5264dc
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Thu Nov 17 13:04:02 2016 -0700
+
+    input skeleton
+
+commit 99219a3ca37f2b8b5f86e6d4c4bec6a4bc30f3cf
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Thu Nov 17 13:03:28 2016 -0700
+
+    Update create_report.py
+
+commit 97daa14ef64bf546d4eff3fe1cd89edc4e0e13d6
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Thu Nov 17 13:01:39 2016 -0700
+
+    Create run_report.sh
+
+commit 2ff6b6b9bd0bf0d8f4434c0c3c4797317b0b77eb
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Thu Nov 17 13:01:17 2016 -0700
+
+    Create create_report.py
+
+commit 4bb6154e52e5bec3f6f305c84b2e53dff7b78e8b
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Thu Nov 17 13:01:06 2016 -0700
+
+    Create config.ini
+
+commit 17a786c05e5452c36742f4550b996d0a0bb0f610
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Thu Nov 17 12:59:56 2016 -0700
+
+    Update README.md
+
+commit 8f8a6c3c8adf8e4737d28b496409d4bf7d2492dc
+Author: locoslrak <karlmarble@mail.weber.edu>
+Date:   Thu Nov 17 12:53:51 2016 -0700
+
+    Initial commit

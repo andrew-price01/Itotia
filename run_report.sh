@@ -47,7 +47,7 @@ code=$?
 		# Body: Successfully created a transaction report from BegDate to EndDate
 if [ "$code" == "0" ]; then
 	#set FTP variables
-	HOST='137.190.19.99'
+	HOST='137.190.19.105'
 	USER=$user
 	PASSWD=$pass
 	#set file variables
